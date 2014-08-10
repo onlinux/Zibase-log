@@ -12,9 +12,8 @@ J'ai testé le fonctionnement sous Ubuntu, Raspian ainsi que Windows7
 
 <h1>Marche à suivre pour l'installation du script:</h1>
 
-Téléchargez le fichier <a href="http://onlinux.free.fr/pub/udp.zip" title="udp.zip">udp.zip</a>
 
-Décompressez le fichier dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
+Décompressez le zip du projet dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
 
 <pre style="font-size:12px;">
 eric@I7:~/Documents$ cd udp
