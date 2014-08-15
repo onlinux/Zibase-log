@@ -9,7 +9,8 @@ Le script nécessite l'installation de <a href="http://nodejs.org/download/" tit
 J'ai testé le fonctionnement sous Ubuntu, Raspian ainsi que Windows7
 
 <h1>Marche à suivre pour l'installation du script:</h1>
-Avant tout, vérifiez la bonne installation de nodejs ainsi que de npm. Les commandes <em>node -v</em> et <em>npm -v</em> doivent retourner la version des applications:</br>
+Avant tout, vérifiez la bonne installation de nodejs ainsi que de npm. Les commandes <em>node -v</em> et <em>npm -v</em> doivent retourner la version des applications:
+
 Sous linux:
 <pre>
 pi@raspi /var/log $ node -v
