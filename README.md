@@ -9,8 +9,8 @@ Le script nécessite l'installation de <a href="http://nodejs.org/download/" tit
 J'ai testé le fonctionnement sous Ubuntu, Raspian ainsi que Windows7
 
 <h1>Marche à suivre pour l'installation du script:</h1>
-
 Avant tout, vérifiez la bonne installation de nodejs ainsi que de npm. Les commandes <em>node -v</em> et <em>npm -v</em> doivent retourner la version des applications:
+
 Sous linux:
 <pre>
 pi@raspi /var/log $ node -v
@@ -26,6 +26,8 @@ Sous Windows:
 
 
 Une fois node et npm installés, décompressez le zip du projet dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
+
+
 
 <pre style="font-size:12px;">
 eric@I7:~/Documents$ cd udp
@@ -54,7 +56,7 @@ eric@I7:~/Documents/udp$ cat package.json
 
   },
   "author": "onlinux",
-  "date": "20140809"
+   "date": "20140809"
 }
 </pre>
 <h1>Lancement du script</h1>
@@ -73,7 +75,6 @@ E:\node\udp\<strong>npm run wstart</strong>
 </pre>
 
 vous devriez obtenir la log de la zibase en temps réel:
-
 <pre style="font-size:12px;">
 eric@I7:~/Documents/udp$ npm start
 
@@ -108,32 +109,4 @@ Sat Aug 09 2014 21:32:57 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</r
 Le script est très simple, il peut être conjuguer facilement à un serveur express pour accéder à l'ensemble des info Zibase ou bien créer un site comme il en existe déjà en php pour la zibase.
 
 Voilà, en espérant que cela puisse aider quelques utilisateurs de la Zibase lors de l'installation et test d'un nouveau scénario.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
