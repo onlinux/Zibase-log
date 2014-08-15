@@ -9,9 +9,24 @@ Le script nécessite l'installation de <a href="http://nodejs.org/download/" tit
 J'ai testé le fonctionnement sous Ubuntu, Raspian ainsi que Windows7
 
 <h1>Marche à suivre pour l'installation du script:</h1>
+Avant tout, vérifiez la bonne installation de nodejs ainsi que de npm. Les commandes <em>node -v</em> et <em>npm -v</em> doivent retourner la version des applications:
+Sous linux:
+<pre>
+pi@raspi /var/log $ node -v
+v0.10.2
+pi@raspi /var/log $ npm -v
+1.2.15
+
+</pre>
+
+Sous Windows:
+<a href="http://onlinux.free.fr/pub/snapshot3.png"><img src="http://onlinux.free.fr/pub/snapshot3.png" alt="snapshot3" width="1" height="1" class="alignnone size-medium wp-image-67" /><img src="http://onlinux.free.fr/pub/snapshot3.png" alt="snapshot windows" /></a>
 
 
-Décompressez le zip du projet dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
+
+Une fois node et npm installés, décompressez le zip du projet dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
+
+
 
 <pre style="font-size:12px;">
 eric@I7:~/Documents$ cd udp
