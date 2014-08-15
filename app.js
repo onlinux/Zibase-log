@@ -9,7 +9,7 @@ var b = new Buffer(70);
 b.fill(0);
 b.write('ZSIG\0', 0/*offset*/);
 b.writeUInt16BE(13,4); //command HOST REGISTERING (13)
-b.writeUInt32BE(dot2num(clientIp), 50);
+b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
 b.writeUInt32BE(0x42CC, 54); // port 17100 0x42CC
 
 console.log(b);
