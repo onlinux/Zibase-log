@@ -23,7 +23,7 @@ pi@raspi /var/log $ npm -v
 Sous Windows:
 <a href="http://onlinux.free.fr/pub/snapshot3.png"><img src="http://onlinux.free.fr/pub/snapshot3.png" alt="snapshot3" width="1" height="1" class="alignnone size-medium wp-image-67" /><img src="http://onlinux.free.fr/pub/snapshot3.png" alt="snapshot windows" /></a>
 
-
+Sous Linux, téléchargez le fichier facilement avec wget
 <pre style="font-size:12px;">
 pi@raspidev ~ $ <strong>wget https://github.com/onlinux/Zibase-log/archive/master.zip</strong>
 </pre>
