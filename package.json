@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "wstart" : "SET IP_ZIBASE=192.168.0.100 && node app.js",
+    "wstart": "SET IP_ZIBASE=192.168.0.100 && node app.js",
     "start": "export IP_ZIBASE=192.168.0.100; node app.js"
   },
   "dependencies": {
-
+    "moment": "^2.8.3"
   },
   "author": "onlinux",
   "date": "20140809"
