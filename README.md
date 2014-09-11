@@ -28,18 +28,18 @@ Sous Linux, téléchargez le fichier facilement avec wget
 pi@raspidev ~ $ <strong>wget https://github.com/onlinux/Zibase-log/archive/master.zip</strong>
 </pre>
 
-Une fois node et npm installés, décompressez le fichier <a href="https://github.com/onlinux/Zibase-log/archive/master.zip">master.zip</a> du projet dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
+Une fois node et npm installés, décompressez le fichier <a href="https://github.com/onlinux/Zibase-log/archive/master.zip">master.zip</a> du projet dans un répertoire (ex: Zibase-log-master, pour moi ce sera udp), vous obtenez:
 
 
 <pre style="font-size:12px;">
-eric@I7:~/Documents$ cd udp
-eric@I7:~/Documents/udp$ ll
+pi@raspidev ~ $ cd Zibase-log-master/
+pi@raspidev ~/Zibase-log-master $ ll
 total 16
-drwxr-xr-x 2 eric eric 4096 août   9 21:07 ./
-drwxr-xr-x 6 eric eric 4096 août   9 21:08 ../
--rw-rw-r-- 1 eric eric 2132 août   9 18:30 app.js
--rw-r--r-- 1 eric eric  280 août   9 19:00 package.json
-eric@I7:~/Documents/udp$ 
+-rw-r--r-- 1 pi pi 2328 sept. 11 19:21 app.js
+-rw-r--r-- 1 pi pi  299 sept. 11 19:21 package.json
+-rw-r--r-- 1 pi pi 5955 sept. 11 19:21 README.md
+pi@raspidev ~/Zibase-log-master $ 
+
 </pre>
 
 <em>Il faut maintenant renseigner le script avec l'adresse IP de votre zibase</em>, pour cela
