@@ -26,9 +26,25 @@ Sous Windows:
 
 
 Une fois node et npm installés, décompressez le fichier <a href="https://github.com/onlinux/Zibase-log/archive/master.zip">master.zip</a> du projet dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
+<pre style="font-size:12px;">
+pi@raspidev ~ $ <strong>wget https://github.com/onlinux/Zibase-log/archive/master.zip</strong>
+--2014-09-11 19:27:38--  https://github.com/onlinux/Zibase-log/archive/master.zip
+Résolution de github.com (github.com)... 192.30.252.131
+Connexion vers github.com (github.com)|192.30.252.131|:443...connecté.
+requête HTTP transmise, en attente de la réponse...302 Found
+Emplacement: https://codeload.github.com/onlinux/Zibase-log/zip/master [suivant]
+--2014-09-11 19:27:44--  https://codeload.github.com/onlinux/Zibase-log/zip/master
+Résolution de codeload.github.com (codeload.github.com)... 192.30.252.145
+Connexion vers codeload.github.com (codeload.github.com)|192.30.252.145|:443...connecté.
+requête HTTP transmise, en attente de la réponse...200 OK
+Longueur: 6309 (6,2K) [application/zip]
+Sauvegarde en : «master.zip»
 
+100%[====================================================================================================================>] 6 309       --.-K/s   ds 0,007s  
 
+2014-09-11 19:27:50 (863 KB/s) - «master.zip» sauvegardé [6309/6309]
 
+</pre>
 <pre style="font-size:12px;">
 eric@I7:~/Documents$ cd udp
 eric@I7:~/Documents/udp$ ll
