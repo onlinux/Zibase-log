@@ -53,7 +53,7 @@ eric@I7:~/Documents/udp$ cat package.json
     "start": "export IP_ZIBASE=<strong>192.168.0.100</strong>; node app.js"
   },
   "dependencies": {
-
+    "moment": "2.8.3"
   },
   "author": "onlinux",
    "date": "20140809"
