@@ -28,7 +28,7 @@ Sous Linux, téléchargez le fichier facilement avec wget
 pi@raspidev ~ $ <strong>wget https://github.com/onlinux/Zibase-log/archive/master.zip</strong>
 </pre>
 
-Une fois node et npm installés, décompressez le fichier <a href="https://github.com/onlinux/Zibase-log/archive/master.zip">master.zip</a> du projet dans un répertoire (ex: Zibase-log-master, pour moi ce sera udp), vous obtenez:
+Une fois node et npm installés, décompressez le fichier <a href="https://github.com/onlinux/Zibase-log/archive/master.zip">master.zip</a> du projet dans un répertoire (ex: Zibase-log-master), vous obtenez:
 
 
 <pre style="font-size:12px;">
@@ -111,7 +111,7 @@ On peut enregistrer l'ensemble de l'activité dans un fichier pour une analyse u
 Bon, si vous utilisez linux, vous connaissez les commandes grep, pipe| etc... tout le nécessaire pour une recherche dans une log.
 
 <pre style="font-size:12px;">
-eric@I7:~/Documents/udp$ npm start | grep radio
+eric@I7:~/Zibase-log-master$ npm start | grep radio
 Sat Aug 09 2014 21:32:45 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</rf> Noise=<noise>2445</noise> Level=<lev>5.0</lev>/5 <dev>Temp-Hygro</dev> Ch=<ch>2</ch> T=<tem>+26.1</tem>C (+78.9F) Humidity=<hum>63</hum>%  Batt=<bat>Ok</bat>): <id>OS439208706</id>
 Sat Aug 09 2014 21:32:50 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</rf> Noise=<noise>2425</noise> Level=<lev>5.0</lev>/5 <dev>Temp-Hygro</dev> Ch=<ch>1</ch> T=<tem>+26.5</tem>C (+79.7F) Humidity=<hum>64</hum>%  Batt=<bat>Ok</bat>): <id>OS439164929</id>
 Sat Aug 09 2014 21:32:57 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</rf> Noise=<noise>2404</noise> Level=<lev>3.5</lev>/5 <dev>Temp-Hygro</dev> Ch=<ch>1</ch> T=<tem>+25.7</tem>C (+78.2F) Humidity=<hum>64</hum>%  Batt=<bat>Ok</bat>): <id>OS439207425</id>
