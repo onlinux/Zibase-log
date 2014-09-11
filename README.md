@@ -25,7 +25,7 @@ Sous Windows:
 
 
 
-Une fois node et npm installés, décompressez le zip du projet dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
+Une fois node et npm installés, décompressez le fichier <a href="https://github.com/onlinux/Zibase-log/archive/master.zip">master.zip</a> du projet dans un répertoire (ex: zibase tools, pour moi ce sera udp), vous obtenez:
 
 
 
@@ -70,7 +70,7 @@ S'il manquait des modules, ceux-ci vont être téléchargés et installés.
 
 Maintenant, il suffit de lancer le script.
 
-Pour le lancer sous linux , tapez:
+Pour le lancer sous Linux , tapez:
 
 <pre style="font-size:12px;">
 eric@I7:~/Documents/udp$ <strong>npm start</strong>
