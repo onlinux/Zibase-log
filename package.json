@@ -1,6 +1,6 @@
 {
   "name": "zibase-log",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "wstart": "SET IP_ZIBASE=192.168.0.100 && node app.js",
@@ -10,5 +10,5 @@
     "moment": "2.8.3"
   },
   "author": "onlinux",
-  "date": "20140809"
+  "date": "20140911"
 }
