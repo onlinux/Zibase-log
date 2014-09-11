@@ -101,7 +101,7 @@ Sat Aug 09 2014 21:10:52 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</r
 ^CCaught interrupt signal
 <Buffer 5a 53 49 47 00 16 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 c0 ...>
 Unregistering... 70
-eric@I7:~/Documents/udp$ exit
+eric@I7:~/Zibase-log-master$ exit
 
 </pre>
 
