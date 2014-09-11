@@ -1,16 +1,19 @@
 var clientIp = process.env.MYIP || getIPAddress();
 var zibaseIp = process.env.IP_ZIBASE|| "192.168.0.100";
 
+var moment = require('moment');
+
 var dgram = require("dgram");
 var server = dgram.createSocket("udp4");
 var client = dgram.createSocket("udp4");
-
+var dateFormat = "MMM DD HH:mm:ss";
 var b = new Buffer(70);
 b.fill(0);
 b.write('ZSIG\0', 0/*offset*/);
 b.writeUInt16BE(13,4); //command HOST REGISTERING (13)
 b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
 b.writeUInt32BE(0x42CC, 54); // port 17100 0x42CC
+
 
 console.log(b);
 
@@ -22,7 +25,8 @@ server.on("error", function (err) {
 });
 
 server.on("message", function (msg, rinfo) {
-  console.log( new Date() + " " + msg.slice(70) );
+  var date = moment();
+  console.log( date.format(dateFormat) + " " + msg.slice(70) );
 });
 
 server.on("listening", function () {
