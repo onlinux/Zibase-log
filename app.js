@@ -1,3 +1,11 @@
+/*
+ +-+-+-+-+-+-+-+-+-+-+
+ |o|n|l|i|n|u|x|.|f|r|
+ +-+-+-+-+-+-+-+-+-+-+
+ https://github.com/onlinux/Zibase-log
+*/
+
+
 var clientIp = process.env.MYIP || getIPAddress();
 var zibaseIp = process.env.IP_ZIBASE || "192.168.0.100";
 
