@@ -16,12 +16,12 @@ b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
 b.writeUInt32BE(0x42CC, 54); // port 17100 0x42CC
 
 
-console.log(b);
+//console.log(b);
 
-console.log(b.toString('hex', 0, b.length));
+//console.log(b.toString('hex', 0, b.length));
 
 server.on("error", function (err) {
-    console.log("server error:\n" + err.stack);
+    console.log("Server error:\n" + err.stack);
     server.close();
 });
 
@@ -32,7 +32,7 @@ server.on("message", function (msg, rinfo) {
 
 server.on("listening", function () {
     var address = server.address();
-    console.log("server listening " +
+    console.log("Server listening " +
         address.address + ":" + address.port);
 });
 
