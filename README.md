@@ -32,8 +32,8 @@ Une fois node et npm installés, décompressez le fichier <a href="https://githu
 
 
 <pre style="font-size:12px;">
-pi@raspidev ~ $ cd Zibase-log-master/
-pi@raspidev ~/Zibase-log-master $ ll
+pi@raspidev ~ $ cd <strong>Zibase-log-master</strong>
+pi@raspidev ~/Zibase-log-master $ <strong>ll</strong>
 total 16
 -rw-r--r-- 1 pi pi 2328 sept. 11 19:21 app.js
 -rw-r--r-- 1 pi pi  299 sept. 11 19:21 package.json
@@ -45,28 +45,30 @@ pi@raspidev ~/Zibase-log-master $
 <em>Il faut maintenant renseigner le script avec l'adresse IP de votre zibase</em>, pour cela
 éditez le fichier package.json et entrez l'adresse de votre zibase ( pour moi c'est 192.168.0.100)
 <pre style="font-size:12px;">
-eric@I7:~/Documents/udp$ cat package.json 
+
+pi@raspidev ~/Zibase-log-master $ cat package.json 
 {
   "name": "zibase-log",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
-    "wstart" : "SET IP_ZIBASE=<strong>192.168.0.100</strong> && node app.js",
+    "wstart": "SET IP_ZIBASE=<strong>192.168.0.100</strong> && node app.js",
     "start": "export IP_ZIBASE=<strong>192.168.0.100</strong>; node app.js"
   },
   "dependencies": {
     "moment": "2.8.3"
   },
   "author": "onlinux",
-   "date": "20140809"
+  "date": "20140911"
 }
+pi@raspidev ~/Zibase-log-master $
 </pre>
 <h1>Lancement du script</h1>
 
 Assurez-vous que tous les modules nodeJs sont bien installés, sous Windows ou Linux tapez:
 
 <pre style="font-size:12px;">
-eric@I7:~/Documents/udp$ <strong>npm install</strong>
+eric@I7:~/Zibase-log-master$ <strong>npm install</strong>
 </pre>
 S'il manquait des modules, ceux-ci vont être téléchargés et installés.
 
@@ -75,7 +77,7 @@ Maintenant, il suffit de lancer le script.
 Pour le lancer sous Linux , tapez:
 
 <pre style="font-size:12px;">
-eric@I7:~/Documents/udp$ <strong>npm start</strong>
+eric@I7:~/Zibase-log-master$ <strong>npm start</strong>
 </pre>
 
 Sous Windows, tapez:
@@ -85,7 +87,7 @@ E:\node\udp\<strong>npm run wstart</strong>
 
 vous devriez obtenir la log de la zibase en temps réel:
 <pre style="font-size:12px;">
-eric@I7:~/Documents/udp$ npm start
+eric@I7:~/Zibase-log-master$ npm start
 
 > zibase-log@0.0.1 start /home/eric/Documents/udp
 > export IP_ZIBASE=192.168.0.100; node app.js
