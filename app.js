@@ -2,11 +2,12 @@ var clientIp = process.env.MYIP || getIPAddress();
 var zibaseIp = process.env.IP_ZIBASE|| "192.168.0.100";
 
 var moment = require('moment');
+var dateFormat = "MMM DD HH:mm:ss";
 
 var dgram = require("dgram");
 var server = dgram.createSocket("udp4");
 var client = dgram.createSocket("udp4");
-var dateFormat = "MMM DD HH:mm:ss";
+
 var b = new Buffer(70);
 b.fill(0);
 b.write('ZSIG\0', 0/*offset*/);
