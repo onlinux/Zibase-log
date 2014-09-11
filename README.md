@@ -61,6 +61,13 @@ eric@I7:~/Documents/udp$ cat package.json
 </pre>
 <h1>Lancement du script</h1>
 
+Assurez-vous que tous les modules nodejs sont bien installés, sous Wndows ou Linux tapez:
+
+<pre style="font-size:12px;">
+eric@I7:~/Documents/udp$ <strong>npm install</strong>
+</pre>
+S'il manquait des modules, ceux-ci vont être téléchargés et installés.
+
 Maintenant, il suffit de lancer le script.
 
 Pour le lancer sous linux , tapez:
