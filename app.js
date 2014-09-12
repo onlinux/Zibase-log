@@ -21,17 +21,22 @@ var probes = [];
 var actuators = [];
 var sensors = [];
 var scenarios = [];
+var debug = true;
 
 url = "http://zibase.net/api/get/ZAPI.php?zibase="+config.zibase+"&token="+config.token+"&service=get&target=home";
-request(url, function (err, resp, body) {
 
+request(url, function (err, resp, body) {
+    if (err) {
+        console.log ("Could not retrieve data from zibase.net! ", err);
+        return;
+    }
     home = JSON.parse(body);
     probes = _.indexBy(home.body.probes, 'id');
     actuators = _.indexBy(home.body.actuators, 'id');
     sensors = _.indexBy(home.body.sensors, 'id');
     scenarios = _.indexBy(home.body.scenarios, 'id');
 
-    console.dir(probes);
+    if (debug) console.dir(probes);
 
 });
 
