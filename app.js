@@ -3,14 +3,37 @@
  |o|n|l|i|n|u|x|.|f|r|
  +-+-+-+-+-+-+-+-+-+-+
  https://github.com/onlinux/Zibase-log
-*/
 
+ */
+
+var _ = require('underscore');
+var request = require("request");
+var S = require('string');
+var config = require('./config')
 
 var clientIp = process.env.MYIP || getIPAddress();
-var zibaseIp = process.env.IP_ZIBASE || "192.168.0.100";
+var zibaseIp = config.zibaseIp || "192.168.0.100";
 
 var moment = require('moment');
 var dateFormat = "MMM DD YYYY HH:mm:ss";
+var home;
+var probes = [];
+var actuators = [];
+var sensors = [];
+var scenarios = [];
+
+url = "http://zibase.net/api/get/ZAPI.php?zibase="+config.zibase+"&token="+config.token+"&service=get&target=home";
+request(url, function (err, resp, body) {
+
+    home = JSON.parse(body);
+    probes = _.indexBy(home.body.probes, 'id');
+    actuators = _.indexBy(home.body.actuators, 'id');
+    sensors = _.indexBy(home.body.sensors, 'id');
+    scenarios = _.indexBy(home.body.scenarios, 'id');
+
+    console.dir(probes);
+
+});
 
 var dgram = require('dgram');
 var server = dgram.createSocket("udp4");
@@ -23,9 +46,7 @@ b.writeUInt16BE(13, 4); //command HOST REGISTERING (13)
 b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
 b.writeUInt32BE(0x42CC, 54); // port 17100 0x42CC
 
-
 //console.log(b);
-
 //console.log(b.toString('hex', 0, b.length));
 
 server.on("error", function (err) {
@@ -35,7 +56,18 @@ server.on("error", function (err) {
 
 server.on("message", function (msg, rinfo) {
     var date = moment();
-    console.log(date.format(dateFormat) + " " + msg.slice(70));
+    msg = msg.slice(70);
+    msg = msg.toString();
+    var id = S(msg).between('<id>', '</id>').s;
+    if (probes[id]) {
+        msg = msg.replace(/<id>(.*)<\/id>/g, probes[id].name + ' ($1)');
+    } else if (sensors[id]) {
+        msg = msg.replace(/<id>(.*)<\/id>/g, sensors[id].name + ' ($1)');
+    } else if (actuators[id]) {
+        msg = msg.replace(/<id>(.*)<\/id>/g, actuators[id].name + ' ($1)');
+    }
+    //msg = msg.replace(/<(?:.|\n)*?>/gm, ''); // delete all html tags
+    console.log(date.format(dateFormat) + " " + msg);
 });
 
 server.on("listening", function () {
