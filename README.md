@@ -25,7 +25,7 @@ Sous Windows:
 
 Sous Linux, téléchargez le fichier facilement avec wget
 <pre style="font-size:12px;">
-pi@raspidev ~ $ <strong>wget https://github.com/onlinux/Zibase-log/archive/master.zip</strong>
+pi@raspidev ~ $ <strong>wget https://github.com/onlinux/Zibase-log/archive/dev.zip</strong>
 </pre>
 
 Une fois node et npm installés, décompressez le fichier <a href="https://github.com/onlinux/Zibase-log/archive/master.zip">master.zip</a> du projet dans un répertoire (ex: Zibase-log-master), vous obtenez:
@@ -52,8 +52,6 @@ pi@raspidev ~/Zibase-log-master $ cat package.json
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "wstart": "SET IP_ZIBASE=<strong>192.168.0.100</strong> && node app.js",
-    "start": "export IP_ZIBASE=<strong>192.168.0.100</strong>; node app.js"
   },
   "dependencies": {
     "moment": "2.8.3"
@@ -85,39 +83,4 @@ Sous Windows, tapez:
 E:\node\udp\<strong>npm run wstart</strong>
 </pre>
 
-vous devriez obtenir la log de la zibase en temps réel:
-<pre style="font-size:12px;">
-eric@I7:~/Zibase-log-master$ npm start
-
-> zibase-log@0.0.1 start /home/eric/Documents/udp
-> export IP_ZIBASE=192.168.0.100; node app.js
-
-<Buffer 5a 53 49 47 00 0d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 c0 ...>
-5a534947000d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0a80072000042cc000000000000000000000000
-server listening 192.168.0.114:17100
-Sat Aug 09 2014 21:10:49 GMT+0200 (CEST) Zapi linked to host IP=<zip>192.168.0.114</zip> UDP Port=<zudp>17100</zudp>
-Sat Aug 09 2014 21:10:51 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</rf> Noise=<noise>2425</noise> Level=<lev>3.3</lev>/5 <dev>Temp-Hygro</dev> Ch=<ch>1</ch> T=<tem>+25.8</tem>C (+78.4F) Humidity=<hum>64</hum>%  Batt=<bat>Ok</bat>): <id>OS439207425</id>
-Sat Aug 09 2014 21:10:52 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</rf> Noise=<noise>2424</noise> Level=<lev>5.0</lev>/5 <dev>Temp-Hygro</dev> Ch=<ch>2</ch> T=<tem>+26.1</tem>C (+78.9F) Humidity=<hum>64</hum>%  Batt=<bat>Ok</bat>): <id>OS439208706</id>
-^CCaught interrupt signal
-<Buffer 5a 53 49 47 00 16 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 c0 ...>
-Unregistering... 70
-eric@I7:~/Zibase-log-master$ exit
-
-</pre>
-
-Pour suivre l'activité lors de l'installation d'un nouveau scénario , sur mon raspberry pi, je
-pipe la log et grep sur une chaîne de caractère ou un numero de scénario.
-On peut enregistrer l'ensemble de l'activité dans un fichier pour une analyse ultérieure.
-Bon, si vous utilisez linux, vous connaissez les commandes grep, pipe| etc... tout le nécessaire pour une recherche dans une log.
-
-<pre style="font-size:12px;">
-eric@I7:~/Zibase-log-master$ npm start | grep radio
-Sat Aug 09 2014 21:32:45 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</rf> Noise=<noise>2445</noise> Level=<lev>5.0</lev>/5 <dev>Temp-Hygro</dev> Ch=<ch>2</ch> T=<tem>+26.1</tem>C (+78.9F) Humidity=<hum>63</hum>%  Batt=<bat>Ok</bat>): <id>OS439208706</id>
-Sat Aug 09 2014 21:32:50 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</rf> Noise=<noise>2425</noise> Level=<lev>5.0</lev>/5 <dev>Temp-Hygro</dev> Ch=<ch>1</ch> T=<tem>+26.5</tem>C (+79.7F) Humidity=<hum>64</hum>%  Batt=<bat>Ok</bat>): <id>OS439164929</id>
-Sat Aug 09 2014 21:32:57 GMT+0200 (CEST) Received radio ID (<rf>433Mhz Oregon</rf> Noise=<noise>2404</noise> Level=<lev>3.5</lev>/5 <dev>Temp-Hygro</dev> Ch=<ch>1</ch> T=<tem>+25.7</tem>C (+78.2F) Humidity=<hum>64</hum>%  Batt=<bat>Ok</bat>): <id>OS439207425</id>
-</pre>
-
-Le script est très simple, il peut être conjuguer facilement à un serveur express pour accéder à l'ensemble des info Zibase ou bien créer un site comme il en existe déjà en php pour la zibase.
-
-Voilà, en espérant que cela puisse aider quelques utilisateurs de la Zibase lors de l'installation et test d'un nouveau scénario.
 
