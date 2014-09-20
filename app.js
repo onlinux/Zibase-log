@@ -21,11 +21,16 @@ var probes = [];
 var actuators = [];
 var sensors = [];
 var scenarios = [];
+var cameras = [];
+var variables = [];
 var debug = config.debug || false;
 
 url = 'http://'+config.platform+'/api/get/ZAPI.php?zibase='+config.zibase+'&token='+config.token+'&service=get&target=home';
 
 request(url, function (err, resp, body) {
+    if (debug) {
+        console.info(url);
+    }
     if (err) {
         console.log ("Could not retrieve data from zibase.net! ", err);
         return;
@@ -35,8 +40,10 @@ request(url, function (err, resp, body) {
     actuators = _.indexBy(home.body.actuators, 'id');
     sensors = _.indexBy(home.body.sensors, 'id');
     scenarios = _.indexBy(home.body.scenarios, 'id');
+    variables = home.body.variables;
+    cameras = _.indexBy(home.body.camerass, 'id');
 
-    if (debug) console.dir(probes);
+    if (debug) console.dir(variables);
 
 });
 
@@ -63,14 +70,29 @@ server.on("message", function (msg, rinfo) {
     var date = moment();
     msg = msg.slice(70);
     msg = msg.toString();
-    var id = S(msg).between('<id>', '</id>').s;
-    if (probes[id]) {
-        msg = msg.replace(/<id>(.*)<\/id>/g, probes[id].name + ' ($1)');
-    } else if (sensors[id]) {
-        msg = msg.replace(/<id>(.*)<\/id>/g, sensors[id].name + ' ($1)');
-    } else if (actuators[id]) {
-        msg = msg.replace(/<id>(.*)<\/id>/g, actuators[id].name + ' ($1)');
+
+    if (S(msg).contains('SCENARIO')) {
+
+        var id= msg.replace(/\w* SCENARIO: (\d*)(.*)/,'$1');
+        console.log('scenario Id: ' + id);
+        id = parseInt(id);
+        if (id  && scenarios[id]) {
+
+                msg = msg + ' ' + scenarios[id].name;
+        }
+
+    } else {
+
+        var id = S(msg).between('<id>', '</id>').s;
+        if (probes[id]) {
+            msg = msg.replace(/<id>(.*)<\/id>/g, probes[id].name + ' ($1)');
+        } else if (sensors[id]) {
+            msg = msg.replace(/<id>(.*)<\/id>/g, sensors[id].name + ' ($1)');
+        } else if (actuators[id]) {
+            msg = msg.replace(/<id>(.*)<\/id>/g, actuators[id].name + ' ($1)');
+        }
     }
+
 
     if (!debug) {
         msg = msg.replace(/<(?:.|\n)*?>/gm, ''); // delete all html tags
