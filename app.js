@@ -23,7 +23,7 @@ var sensors = [];
 var scenarios = [];
 var debug = true;
 
-url = "http://zibase.net/api/get/ZAPI.php?zibase="+config.zibase+"&token="+config.token+"&service=get&target=home";
+url = 'http://'+config.platform+'/api/get/ZAPI.php?zibase='+config.zibase+'&token='+config.token+'&service=get&target=home';
 
 request(url, function (err, resp, body) {
     if (err) {
@@ -71,7 +71,10 @@ server.on("message", function (msg, rinfo) {
     } else if (actuators[id]) {
         msg = msg.replace(/<id>(.*)<\/id>/g, actuators[id].name + ' ($1)');
     }
-    //msg = msg.replace(/<(?:.|\n)*?>/gm, ''); // delete all html tags
+
+    if (!debug) {
+        msg = msg.replace(/<(?:.|\n)*?>/gm, ''); // delete all html tags
+    }
     console.log(date.format(dateFormat) + " " + msg);
 });
 
