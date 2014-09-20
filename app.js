@@ -74,7 +74,6 @@ server.on("message", function (msg, rinfo) {
     if (S(msg).contains('SCENARIO')) {
 
         var id= msg.replace(/\w* SCENARIO: (\d*)(.*)/,'$1');
-        console.log('scenario Id: ' + id);
         id = parseInt(id);
         if (id  && scenarios[id]) {
 
