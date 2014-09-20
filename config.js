@@ -6,5 +6,6 @@ config.zibaseIp = process.env.IP_ZIBASE || '192.168.0.100'; // <- Enter LAN IP a
 config.platform = 'zibase.net';
 config.zibase = 'ZiBASEXXXXXX'; // <- Enter Main Identifier
 config.token = 'XXXXXXXXXX'; // <- Enter Token
+config.debug = false;
 
 module.exports = config;
