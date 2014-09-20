@@ -21,7 +21,7 @@ var probes = [];
 var actuators = [];
 var sensors = [];
 var scenarios = [];
-var debug = true;
+var debug = config.debug || false;
 
 url = 'http://'+config.platform+'/api/get/ZAPI.php?zibase='+config.zibase+'&token='+config.token+'&service=get&target=home';
 
