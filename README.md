@@ -28,6 +28,17 @@ Sous Linux, téléchargez le fichier facilement avec wget
 pi@raspidev ~ $ <strong>wget https://github.com/onlinux/Zibase-log/archive/dev.zip</strong>
 </pre>
 
+Assurez-vous que tous les modules nodeJs sont bien installés, sous Windows ou Linux tapez:
+<pre>
+eric@I7:~/Zibase-log-dev$ npm install
+</pre>
+S'il manquait des modules, ceux-ci vont être téléchargés et installés.
 
+Maintenant, il suffit de lancer le script.
+
+Pour le lancer sous Linux , tapez:
+<pre>
+eric@I7:~/Zibase-log-dev$ npm start
+</pre>
 
 
