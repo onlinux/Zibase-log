@@ -2,6 +2,15 @@
   "name": "zibase-log",
   "version": "0.0.3",
   "private": true,
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/onlinux/Zibase-log"
+  },
+   "homepage" : "http://blog.onlinux.fr/acceder-au-suivi-dactivite-zibase-avec-node-js/",
+   "keywords": [
+    "raspberrypi",
+    "zibase"
+  ],
   "scripts": {
     "start": "node app.js"
   },
