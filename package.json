@@ -1,0 +1,29 @@
+{
+  "name": "zibase-log",
+  "version": "0.0.3",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onlinux/Zibase-log"
+  },
+  "homepage": "http://blog.onlinux.fr/acceder-au-suivi-dactivite-zibase-avec-node-js/",
+  "keywords": [
+    "raspberrypi",
+    "zibase"
+  ],
+  "scripts": {
+    "start": "node zibase-server.js"
+  },
+  "dependencies": {
+    "connect": "^3.7.0",
+    "es6-map": "^0.1.5",
+    "mqtt": "^2.18.8",
+    "winston": "^2.3.1",
+    "moment": ">=2.19.3",
+    "request": "2.68.0",
+    "string": "^3.3.3",
+    "underscore": "1.7.0"
+  },
+  "author": "onlinux",
+  "date": "20190220"
+}
