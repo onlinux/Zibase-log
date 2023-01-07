@@ -7,6 +7,8 @@
  https://github.com/onlinux/Zibase-log
 
  */
+var os = require("os");
+var hostname = os.hostname();
 var mqtt = require('mqtt');
 var _ = require('underscore');
 var request = require("request");
@@ -38,7 +40,6 @@ var logger = new (winston.Logger)({
 });
 var clientIp = process.env.MYIP || getIPAddress();
 var zibaseIp; 
-//var zibaseIp = config.zibaseIp || "192.168.0.100";
 
 var moment = require('moment');
 var dateFormat = "MMM DD YYYY HH:mm:ss";
@@ -52,25 +53,14 @@ var variables = [];
 var debug = config.debug || false;
 
 // MQTT options
-var options = {
-    keepalive: 10,
-    username: config.mqtt_user,
-    password: config.mqtt_password,
-    clean:true,
-    reconnectPeriod: 1000 * 1
-}
-
+var options = config.mqtt_options;
 var mqttc;
 var ZIDs = config.ids;
-
-
 
 url = 'https://'+config.platform+'/cgi-bin/decodetab?token='+config.token;
 
 request(url, function (err, resp, body) {
-    if (debug) {
-        console.info(url);
-    }
+    logger.debug(url);
     if (err) {
         logger.error ("Could not retrieve data from zibase! ", err);
         return;
@@ -107,7 +97,7 @@ server.on("listening", function () {
         address.address + ":" + address.port);
 });
 server.on("message", function (msg, rinfo) { 
-   //if (debug) logger.info(msg, rinfo);
+   logger.debug(msg, rinfo);
    processMessage(msg, rinfo);       
 });
 client.on('listening', function(){
@@ -141,13 +131,13 @@ client.on("message", function (msg, rinfo) {
 
 function publish(idx, action, id, name){
    var date = moment(); 
-   mqttc = mqtt.connect("mqtt://192.168.0.112",options);
+   mqttc = mqtt.connect("mqtt://" + config.mqtt_ip, options);
    mqttc.on("connect",function(){	
         if (debug) logger.info("connected");
         if (mqttc.connected==true){
-            str = '{"idx":'+ idx + ',"nvalue":' + action +',"svalue":"","ZID": "' + id + '", "NAME":"' + name +'", "description":"zibase-server"}'
+            str = '{"idx":'+ idx + ',"nvalue":' + action +',"svalue":"","ZID": "' + id + '", "NAME":"' + name +'", "description":"zibase-server-' + hostname + '"}'
             logger.info(str);
-            mqttc.publish("domoticz/in", str)
+            mqttc.publish(config.mqtt_topic, str)
             mqttc.end();
         } else {
             logger.error("MQTT connection False\n");
@@ -165,8 +155,8 @@ function processMessage(msg, rinfo) {
     var date = moment();
     msg = msg.slice(70);
     msg = msg.toString();
-    if (debug) logger.info(msg);
-    
+    //if (debug) logger.info(msg);
+    logger.debug(msg);
     if (S(msg).contains('SCENARIO')) {
 
         var id= msg.replace(/\w* SCENARIO: (\d*)(.*)/,'$1');
@@ -181,7 +171,7 @@ function processMessage(msg, rinfo) {
         var action = (S(id[1]).contains('_ON') ) ? 1:0;
         idx = S(id[1]).strip().s
         idx = S(idx).strip('_ON','_OFF', '\u0000').s;
-        if (debug) logger.info( 'action idx :', action, idx);
+        logger.debug( 'action idx :', action, idx);
         var name =  (actuators[idx]) ? actuators[idx].name : "none"
         if (S(msg).contains('RTS433')){
             idx = 'RTS433_' + idx 
@@ -190,7 +180,7 @@ function processMessage(msg, rinfo) {
     } else {
         var id = S(msg).between('<id>', '</id>').s;
         var bat = S(msg).between('<bat>', '</bat>').s;
-        if (debug) logger.info(id + ' ' + bat);
+        logger.debug(id + ' ' + bat);
         var action = (S(id).contains('_OFF') ) ? 0:1;
         var idx = S(id).strip('_ON','_OFF').s;
         
@@ -199,7 +189,7 @@ function processMessage(msg, rinfo) {
             //mqttc.publish('domoticz/in', '{"idx":25,"nvalue":1,"svalue":"","Battery":86,"RSSI":10}');
         } else if (sensors[idx]) {
             msg = msg.replace(/<id>(.*)<\/id>/g, sensors[idx].name + ' sensor ($1)');
-            if (debug) logger.info(idx + ' ' + action);
+            logger.debug(idx + ' ' + action);
             if (ZIDs[idx])
                 publish(ZIDs[idx], action , idx , sensors[idx].name);
         } else if (actuators[idx]) {
@@ -208,13 +198,11 @@ function processMessage(msg, rinfo) {
         }
     }
 
-
     if (!debug) {
         msg = msg.replace(/<(?:.|\n)*?>/gm, ''); // delete all html tags
     }
     //logger.info(date.format(dateFormat) + " " + msg);
 };
-
 
 b.fill(0);
 b.write('ZSIG\0', 0/*offset*/);
