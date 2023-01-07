@@ -4,7 +4,7 @@
  +-+-+-+-+-+-+-+-+-+-+
  |o|n|l|i|n|u|x|.|f|r|
  +-+-+-+-+-+-+-+-+-+-+
- https://github.com/onlinux/Zibase-log
+ https://github.com/onlinux/Zibase-log branch dev
 
  */
 var os = require("os");
@@ -19,27 +19,27 @@ var fs = require('fs');
 var env = process.env.NODE_ENV || config.env;
 var logDir = '/var/log';
 if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir);
+    fs.mkdirSync(logDir);
 }
-var tsFormat = function(){ return new Date().toLocaleString() } ;
+var tsFormat = function () { return new Date().toLocaleString() };
 var logger = new (winston.Logger)({
-  transports: [
-    // colorize the output to the console
-    new (winston.transports.Console)({
-      timestamp: tsFormat,
-      colorize: true,
-      level: 'info'
-    }),
-    new (winston.transports.File)({
-      filename: "/var/log/zibase.log",
-      json: false,
-      timestamp: tsFormat,
-      level: env === 'development' ? 'debug' : 'info'
-    })
-  ]
+    transports: [
+        // colorize the output to the console
+        new (winston.transports.Console)({
+            timestamp: tsFormat,
+            colorize: true,
+            level: 'info'
+        }),
+        new (winston.transports.File)({
+            filename: "/var/log/zibase.log",
+            json: false,
+            timestamp: tsFormat,
+            level: env === 'development' ? 'debug' : 'info'
+        })
+    ]
 });
 var clientIp = process.env.MYIP || getIPAddress();
-var zibaseIp; 
+var zibaseIp;
 
 var moment = require('moment');
 var dateFormat = "MMM DD YYYY HH:mm:ss";
@@ -57,12 +57,12 @@ var options = config.mqtt_options;
 var mqttc;
 var ZIDs = config.ids;
 
-url = 'https://'+config.platform+'/cgi-bin/decodetab?token='+config.token;
+url = 'https://' + config.platform + '/cgi-bin/decodetab?token=' + config.token;
 
 request(url, function (err, resp, body) {
     logger.debug(url);
     if (err) {
-        logger.error ("Could not retrieve data from zibase! ", err);
+        logger.error("Could not retrieve data from zibase! ", err);
         return;
     }
     home = JSON.parse(body);
@@ -96,11 +96,11 @@ server.on("listening", function () {
     logger.info("Server listening " +
         address.address + ":" + address.port);
 });
-server.on("message", function (msg, rinfo) { 
-   logger.debug(msg, rinfo);
-   processMessage(msg, rinfo);       
+server.on("message", function (msg, rinfo) {
+    logger.debug(msg, rinfo);
+    processMessage(msg, rinfo);
 });
-client.on('listening', function(){
+client.on('listening', function () {
     var address = client.address();
     client.setBroadcast(true);
     logger.info("Client listening on port: " + address.port);
@@ -109,33 +109,33 @@ client.on("message", function (msg, rinfo) {
     var date = moment();
     var ip = msg.readUInt32BE(38, 4); //msg.readUIntBE if node -v > 11
     zibaseIp = num2dot(ip);
-    logger.info ( msg.toString(undefined, 6,12 )+ " " + msg.toString(undefined, 22,34 ) + ' IP is  ' + zibaseIp);
+    logger.info(msg.toString(undefined, 6, 12) + " " + msg.toString(undefined, 22, 34) + ' IP is  ' + zibaseIp);
     if (zibaseIp) {
 
-            //HOST REGISTERING
-            b.fill(0);
-            b.write('ZSIG\0', 0/*offset*/);
-            b.writeUInt16BE(13, 4); //command HOST REGISTERING (13)
-            b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
-            b.writeUInt32BE(0x42CC, 54); // port 17100 is 0x42CC
-        
-            var ts = Math.round((new Date()).getTime() / 1000);
-            b.writeUInt32BE(ts, 58); // send timestamp as PARAM3 <---------------------------
-            
-            logger.info('HOST REGISTERING sent to ' + zibaseIp+ ' with  ' + ts.toString() + ' as timestamp');
-            client.send(b, 0, b.length, 49999, zibaseIp, function (err, bytes) {
+        //HOST REGISTERING
+        b.fill(0);
+        b.write('ZSIG\0', 0/*offset*/);
+        b.writeUInt16BE(13, 4); //command HOST REGISTERING (13)
+        b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
+        b.writeUInt32BE(0x42CC, 54); // port 17100 is 0x42CC
+
+        var ts = Math.round((new Date()).getTime() / 1000);
+        b.writeUInt32BE(ts, 58); // send timestamp as PARAM3 <---------------------------
+
+        logger.info('HOST REGISTERING sent to ' + zibaseIp + ' with  ' + ts.toString() + ' as timestamp');
+        client.send(b, 0, b.length, 49999, zibaseIp, function (err, bytes) {
             // client.close();
-            });    
+        });
     }
 });
 
-function publish(idx, action, id, name){
-   var date = moment(); 
-   mqttc = mqtt.connect("mqtt://" + config.mqtt_ip, options);
-   mqttc.on("connect",function(){	
+function publish(idx, action, id, name) {
+    var date = moment();
+    mqttc = mqtt.connect("mqtt://" + config.mqtt_ip, options);
+    mqttc.on("connect", function () {
         if (debug) logger.info("connected");
-        if (mqttc.connected==true){
-            str = '{"idx":'+ idx + ',"nvalue":' + action +',"svalue":"","ZID": "' + id + '", "NAME":"' + name +'", "description":"zibase-server-' + hostname + '"}'
+        if (mqttc.connected == true) {
+            str = '{"idx":' + idx + ',"nvalue":' + action + ',"svalue":"","ZID": "' + id + '", "NAME":"' + name + '", "description":"zibase-server-' + hostname + '"}'
             logger.info(str);
             mqttc.publish(config.mqtt_topic, str)
             mqttc.end();
@@ -144,11 +144,11 @@ function publish(idx, action, id, name){
         }
     });
 
-    mqttc.on("error",function(error){ 
-        logger.error("Can't connect"+error);
+    mqttc.on("error", function (error) {
+        logger.error("Can't connect" + error);
         mqttc.end();
     });
-   
+
 }
 
 function processMessage(msg, rinfo) {
@@ -159,31 +159,31 @@ function processMessage(msg, rinfo) {
     logger.debug(msg);
     if (S(msg).contains('SCENARIO')) {
 
-        var id= msg.replace(/\w* SCENARIO: (\d*)(.*)/,'$1');
+        var id = msg.replace(/\w* SCENARIO: (\d*)(.*)/, '$1');
         //id = parseInt(id);
-        if (id  && scenarios[id]) {
+        if (id && scenarios[id]) {
 
-                msg = msg + ' ' + scenarios[id].name;
+            msg = msg + ' ' + scenarios[id].name;
         }
 
-    } else if ( S(msg).contains('Sent radio ID') ){
+    } else if (S(msg).contains('Sent radio ID')) {
         var id = S(msg).splitRight(' ', 1);
-        var action = (S(id[1]).contains('_ON') ) ? 1:0;
+        var action = (S(id[1]).contains('_ON')) ? 1 : 0;
         idx = S(id[1]).strip().s
-        idx = S(idx).strip('_ON','_OFF', '\u0000').s;
-        logger.debug( 'action idx :', action, idx);
-        var name =  (actuators[idx]) ? actuators[idx].name : "none"
-        if (S(msg).contains('RTS433')){
-            idx = 'RTS433_' + idx 
+        idx = S(idx).strip('_ON', '_OFF', '\u0000').s;
+        logger.debug('action idx :', action, idx);
+        var name = (actuators[idx]) ? actuators[idx].name : "none"
+        if (S(msg).contains('RTS433')) {
+            idx = 'RTS433_' + idx
         }
-        if (ZIDs[idx]) publish(ZIDs[idx], action , idx, name );
+        if (ZIDs[idx]) publish(ZIDs[idx], action, idx, name);
     } else {
         var id = S(msg).between('<id>', '</id>').s;
         var bat = S(msg).between('<bat>', '</bat>').s;
         logger.debug(id + ' ' + bat);
-        var action = (S(id).contains('_OFF') ) ? 0:1;
-        var idx = S(id).strip('_ON','_OFF').s;
-        
+        var action = (S(id).contains('_OFF')) ? 0 : 1;
+        var idx = S(id).strip('_ON', '_OFF').s;
+
         if (probes[idx]) {
             msg = msg.replace(/<id>(.*)<\/id>/g, probes[idx].name + ' probe ($1)');
             //mqttc.publish('domoticz/in', '{"idx":25,"nvalue":1,"svalue":"","Battery":86,"RSSI":10}');
@@ -191,10 +191,10 @@ function processMessage(msg, rinfo) {
             msg = msg.replace(/<id>(.*)<\/id>/g, sensors[idx].name + ' sensor ($1)');
             logger.debug(idx + ' ' + action);
             if (ZIDs[idx])
-                publish(ZIDs[idx], action , idx , sensors[idx].name);
+                publish(ZIDs[idx], action, idx, sensors[idx].name);
         } else if (actuators[idx]) {
             msg = msg.replace(/<id>(.*)<\/id>/g, actuators[idx].name + ' actuator ($1)');
-            
+
         }
     }
 
@@ -243,9 +243,9 @@ function unregister() {
     logger.info('HOST UNREGISTERING sent to ' + zibaseIp);
     logger.info(b);
     client.send(b, 0, b.length, 49999, '192.168.0.255', function (err, bytes) {
-        logger.info("Unregistering...", bytes); 
+        logger.info("Unregistering...", bytes);
         client.close();
-    });    
+    });
 }
 
 function dot2num(dot) {
