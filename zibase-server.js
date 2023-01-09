@@ -21,16 +21,18 @@ var logDir = '/var/log';
 if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
 }
-var tsFormat = function () { return new Date().toLocaleString() };
-var logger = new (winston.Logger)({
+var tsFormat = function () {
+    return new Date().toLocaleString()
+};
+var logger = new(winston.Logger)({
     transports: [
         // colorize the output to the console
-        new (winston.transports.Console)({
+        new(winston.transports.Console)({
             timestamp: tsFormat,
             colorize: true,
             level: 'info'
         }),
-        new (winston.transports.File)({
+        new(winston.transports.File)({
             filename: "/var/log/zibase.log",
             json: false,
             timestamp: tsFormat,
@@ -81,7 +83,7 @@ var dgram = require('dgram');
 var server = dgram.createSocket("udp4");
 var client = dgram.createSocket("udp4");
 
-var b = new Buffer(70);
+const b = Buffer.alloc(70);
 
 //unregister(); 
 //logger.info(b);
@@ -114,7 +116,7 @@ client.on("message", function (msg, rinfo) {
 
         //HOST REGISTERING
         b.fill(0);
-        b.write('ZSIG\0', 0/*offset*/);
+        b.write('ZSIG\0', 0 /*offset*/ );
         b.writeUInt16BE(13, 4); //command HOST REGISTERING (13)
         b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
         b.writeUInt32BE(0x42CC, 54); // port 17100 is 0x42CC
@@ -205,7 +207,7 @@ function processMessage(msg, rinfo) {
 };
 
 b.fill(0);
-b.write('ZSIG\0', 0/*offset*/);
+b.write('ZSIG\0', 0 /*offset*/ );
 b.writeUInt16BE(8, 4); // command NOP (08) ZIBASE DISCOVERY
 // Broadcast msg on lan to retrieve zibase IP
 client.send(b, 0, b.length, 49999, '192.168.0.255', function (err, bytes) {
@@ -216,7 +218,7 @@ server.bind(0x42CC, clientIp); //port 17100 is 0x42CC
 process.on('SIGINT', function () {
     logger.info("Caught interrupt signal");
     b.fill(0);
-    b.write('ZSIG\0', 0/*offset*/);
+    b.write('ZSIG\0', 0 /*offset*/ );
     b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
     b.writeUInt32BE(0x42CC, 54); // port 17100 0x42CC
     b.writeUInt16BE(22, 4); //command HOST UNREGISTERING (22)
@@ -235,7 +237,7 @@ process.on('SIGINT', function () {
 function unregister() {
     var client = dgram.createSocket("udp4");
     b.fill(0);
-    b.write('ZSIG\0', 0/*offset*/);
+    b.write('ZSIG\0', 0 /*offset*/ );
     b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
     b.writeUInt32BE(0x42CC, 54); // port 17100 0x42CC
     b.writeUInt16BE(22, 4); //command HOST UNREGISTERING (22)
