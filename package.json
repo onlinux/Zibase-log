@@ -7,8 +7,7 @@
     "start": "export IP_ZIBASE=192.168.0.100; node app.js"
   },
   "dependencies": {
-    "moment": "2.29.4
-"
+    "moment": "2.29.4"
   },
   "author": "onlinux",
   "date": "20140911"
